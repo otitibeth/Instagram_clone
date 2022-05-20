@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone_app/resources/auth_methods.dart';
+import 'package:instagram_clone_app/responsive/global_variable.dart';
 import 'package:instagram_clone_app/responsive/mobile_screen_layout.dart';
 import 'package:instagram_clone_app/responsive/responsive_layout_screen.dart';
 import 'package:instagram_clone_app/responsive/web_screen_layout.dart';
@@ -67,7 +68,10 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SafeArea(
           child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 32),
+        padding: MediaQuery.of(context).size.width > webScreenSize
+            ? EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width / 3.7)
+            : const EdgeInsets.symmetric(horizontal: 32),
         width: double.infinity,
         child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           Flexible(
@@ -126,28 +130,31 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Container(),
             flex: 2,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                child: const Text('Don\'t have an account? '),
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8,
-                ),
-              ),
-              GestureDetector(
-                onTap: navigateToSignupScreen,
-                child: Container(
-                  child: const Text(
-                    'Sign up.',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  child: const Text('Don\'t have an account? '),
                   padding: const EdgeInsets.symmetric(
                     vertical: 8,
                   ),
                 ),
-              ),
-            ],
+                GestureDetector(
+                  onTap: navigateToSignupScreen,
+                  child: Container(
+                    child: const Text(
+                      'Sign up.',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           )
         ]),
       )),
